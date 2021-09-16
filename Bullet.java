@@ -15,4 +15,7 @@ public class Bullet {
         x += target.getX() - x;
         y += target.getY() - y;
     }
+    public Boolean hit() {
+        if ()
+    }
 }
