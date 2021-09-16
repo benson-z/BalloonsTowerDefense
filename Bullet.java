@@ -11,5 +11,8 @@ public class Bullet {
         this.damage = damage;
         this.target = target;
     }
-    public void
+    public void advance() {
+        x += target.getX() - x;
+        y += target.getY() - y;
+    }
 }

@@ -18,7 +18,7 @@ public class Balloon {
         else if (x >= 13*20 && y == 6*20 && x<17*20) {
             x++;
         }
-        else if (x == 17*20 && y < 15*20) {
+        else if (x == 16*20 && y < 14*20) {
             y++;
         }
         else if (x >= 17*20 && y == 15*20 && x < 21*20) {

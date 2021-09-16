@@ -12,11 +12,11 @@ public class Board {
         for (int c=14; c<18; c++) {
             grid[c][6] = 1;
         }
-        for (int d=7; d<16; d++) {
+        for (int d=7; d<15; d++) {
             grid[17][d] = 1;
         }
         for (int e=18; e<22; e++) {
-            grid[e][15] = 1;
+            grid[e][14] = 1;
         }
         for (int f=14; f>9; f--) {
             grid[21][f] = 1;
