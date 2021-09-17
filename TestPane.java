@@ -17,18 +17,48 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.*;
 
 public class TestPane extends JPanel {
-    private int x = 0;
-    private int y = 0;
+    private int money[] = new int[1];
+    private int towerselection[] = new int[1];
+    private int enemiesPassed[] = new int[1];
+    private int enemiesKilled[] = new int[1];
     private Vector<Balloon> balloons = new Vector<Balloon>();
     private Vector<BadTower> badtowers = new Vector<BadTower>();
     private Vector<BetterTower> bettertowers = new Vector<BetterTower>();
     private Vector<Bullet> bullets = new Vector<Bullet>();
     private Board game;
     private int tickcounter=0;
-    public TestPane(Board game) {
+    public TestPane(Board game, int mon) {
         this.game = game;
+        this.money[0] = mon;
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me);
+                Point a = new Point(me.getPoint());
+                int x = ((int) a.getX() - ((int) a.getX()%20))/20;
+                int y = ((int) a.getY() - ((int) a.getY()%20))/20;
+                if (x >= 31 && y >= 19) {
+                    if (towerselection[0] == 1) {
+                        towerselection[0] = 0;
+                    }
+                    else {
+                        towerselection[0] = 1;
+                    }
+                }
+                else {
+                    if (towerselection[0] == 0 && money[0] >= 250 && game.getTile(x, y) != 1 && game.getTile(x-1, y) != 1 && game.getTile(x+1, y) != 1 && game.getTile(x, y-1) != 1 && game.getTile(x, y+1) != 1) {
+                        money[0] -= 250;
+                        badtowers.add(new BadTower(x, y));
+                    }
+                    else if (money[0] >= 500 && game.getTile(x, y) != 1 && game.getTile(x-1, y) != 1 && game.getTile(x+1, y) != 1 && game.getTile(x, y-1) != 1 && game.getTile(x, y+1) != 1) {
+                        money[0] -= 500;
+                        bettertowers.add(new BetterTower(x, y));
+                    }
+                }
+            }
+        });
         Timer timer = new Timer(15, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 update();
@@ -64,16 +94,17 @@ public class TestPane extends JPanel {
             if (balloons.get(a).getX() > 800) {
                 balloons.remove(a);
                 balloons.add(new Balloon(-20, 200));
+                enemiesPassed[0] ++;
             }
             else if (balloons.get(a).getHealth() <= 0) {
                 balloons.remove(a);
                 balloons.add(new Balloon(-20, 200));
+                enemiesKilled[0] ++;
             }
         }
         for (int b=0; b<bullets.size(); b++) {
             if (bullets.get(b).hit() == 1) {
                 bullets.remove(b);
-                System.out.println("a");
             }
         }
     }
@@ -81,8 +112,7 @@ public class TestPane extends JPanel {
         for (BadTower a : badtowers) {
             for (Balloon b : balloons) {
                 if (Math.abs(a.getX()*20-b.getX()) < 60 && Math.abs(a.getY()*20-b.getY()) < 60) {
-                    bullets.add(new Bullet(a.getX()*20, a.getY()*20, 1, b));
-                    System.out.println("b");
+                    bullets.add(new Bullet(a.getX(), a.getY(), 1, b));
                     break;
                 }
             }
@@ -90,7 +120,7 @@ public class TestPane extends JPanel {
         for (BetterTower a : bettertowers) {
             for (Balloon b : balloons) {
                 if (Math.abs(a.getX()*20-b.getX()) < 60 && Math.abs(a.getY()*20-b.getY()) < 60) {
-                    bullets.add(new Bullet(a.getX()*20, a.getY()*20, 2, b));
+                    bullets.add(new Bullet(a.getX(), a.getY(), 2, b));
                     break;
                 }
             }
@@ -123,7 +153,7 @@ public class TestPane extends JPanel {
             g2d.fillRect(bettertower.getX()*20, bettertower.getY()*20, 20, 20);
         }
         for (Bullet b : bullets) {
-            g2d.setColor(Color.WHITE);
+            g2d.setColor(Color.DARK_GRAY);
             g2d.fillOval(b.getX()+5, b.getY()+5, 10, 10);
         }
         g2d.setColor(Color.RED);
@@ -133,6 +163,19 @@ public class TestPane extends JPanel {
             g2d.fillRect(a.getX()+2, a.getY()-5, 16, 4);
             g2d.setColor(Color.BLUE);
             g2d.fillRect(a.getX()+2, a.getY()-5, a.getHealth()*2, 4);
+        }
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("$ " + String.valueOf(money[0]), 10, 20);
+        g2d.drawString("Balloons Killed: " + String.valueOf(enemiesKilled[0]), 10, 40);
+        g2d.drawString("Passed Balloons " + String.valueOf(enemiesPassed[0]), 10, 60);
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(630, 19*20, 180, 20);
+        g2d.setColor(Color.BLACK);
+        if (towerselection[0] == 0) {
+            g2d.drawString("Switch to Level 2 Tower", 32*20, 20*20-3);
+        }
+        else {
+            g2d.drawString("Switch to Level 1 Tower", 32*20, 20*20-3);
         }
         g2d.dispose();
     }

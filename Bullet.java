@@ -20,11 +20,21 @@ public class Bullet {
         return y;
     }
     public void advance() {
-        x += target.getX() - x;
-        y += target.getY() - y;
+        if (target.getX() > x) {
+            x += 3;
+        }
+        else {
+            x -= 3;
+        }
+        if (target.getY() > y) {
+            y += 3;
+        }
+        else {
+            y -= 3;
+        }
     }
     public int hit() {
-        if (Math.abs(x-target.getX()) < 6 && Math.abs(y-target.getY()) < 6) {
+        if (Math.abs(x-target.getX()) < 16 && Math.abs(y-target.getY()) < 16) {
             target.damage(damage);
             return 1;
         }

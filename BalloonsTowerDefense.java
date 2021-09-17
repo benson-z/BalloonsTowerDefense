@@ -8,9 +8,9 @@ import balloonstowerdefence.*;
 public class BalloonsTowerDefense {
     public static void main(String args[]) {
         Board game = new Board();
-        new BalloonsTowerDefense(game);
+        new BalloonsTowerDefense(game, 1000);
     }
-    public BalloonsTowerDefense(Board game) {
+    public BalloonsTowerDefense(Board game, int money) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -21,7 +21,7 @@ public class BalloonsTowerDefense {
                 }
                 JFrame frame = new JFrame("Balloons Tower Defense");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                TestPane display = new TestPane(game);
+                TestPane display = new TestPane(game, money);
                 frame.add(display);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
@@ -30,10 +30,6 @@ public class BalloonsTowerDefense {
                 display.addBalloon(new Balloon(-80, 200));
                 display.addBalloon(new Balloon(-140, 200));
                 display.addBalloon(new Balloon(-200, 200));
-                display.addBadTower(new BadTower(5, 8));
-                display.addBadTower(new BadTower(10, 12));
-                display.addBadTower(new BadTower(15, 8));
-                display.addBadTower(new BadTower(19, 12));
             }
         });
     }
