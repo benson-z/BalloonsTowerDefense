@@ -1,20 +1,7 @@
-import java.util.*;
-import java.io.*;
-import java.lang.Math;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import balloonstowerdefence.*;
 

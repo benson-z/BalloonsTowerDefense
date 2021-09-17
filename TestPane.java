@@ -24,6 +24,7 @@ public class TestPane extends JPanel {
     private Vector<Balloon> balloons = new Vector<Balloon>();
     private Vector<BadTower> badtowers = new Vector<BadTower>();
     private Vector<BetterTower> bettertowers = new Vector<BetterTower>();
+    private Vector<Bullet> bullets = new Vector<Bullet>();
     private Board game;
     private int tickcounter=0;
     public TestPane(Board game) {
@@ -54,6 +55,9 @@ public class TestPane extends JPanel {
         for (Balloon a : balloons) {
             a.advance();
         }
+        for (Bullet b : bullets) {
+            b.advance();
+        }
     }
     public void clearMem() {
         for (int a=0; a<balloons.size(); a++) {
@@ -66,12 +70,19 @@ public class TestPane extends JPanel {
                 balloons.add(new Balloon(-20, 200));
             }
         }
+        for (int b=0; b<bullets.size(); b++) {
+            if (bullets.get(b).hit() == 1) {
+                bullets.remove(b);
+                System.out.println("a");
+            }
+        }
     }
     public void setTarget() {
         for (BadTower a : badtowers) {
             for (Balloon b : balloons) {
                 if (Math.abs(a.getX()*20-b.getX()) < 60 && Math.abs(a.getY()*20-b.getY()) < 60) {
-                    a.attack(b);
+                    bullets.add(new Bullet(a.getX()*20, a.getY()*20, 1, b));
+                    System.out.println("b");
                     break;
                 }
             }
@@ -79,7 +90,7 @@ public class TestPane extends JPanel {
         for (BetterTower a : bettertowers) {
             for (Balloon b : balloons) {
                 if (Math.abs(a.getX()*20-b.getX()) < 60 && Math.abs(a.getY()*20-b.getY()) < 60) {
-                    a.attack(b);
+                    bullets.add(new Bullet(a.getX()*20, a.getY()*20, 2, b));
                     break;
                 }
             }
@@ -110,6 +121,10 @@ public class TestPane extends JPanel {
         for (BetterTower bettertower : bettertowers) {
             g2d.setColor(Color.GRAY);
             g2d.fillRect(bettertower.getX()*20, bettertower.getY()*20, 20, 20);
+        }
+        for (Bullet b : bullets) {
+            g2d.setColor(Color.WHITE);
+            g2d.fillOval(b.getX()+5, b.getY()+5, 10, 10);
         }
         g2d.setColor(Color.RED);
         for (Balloon a : balloons) {

@@ -1,5 +1,7 @@
 package balloonstowerdefence;
 
+import java.lang.Math;
+
 public class Bullet {
     private int damage;
     private int x;
@@ -11,11 +13,23 @@ public class Bullet {
         this.damage = damage;
         this.target = target;
     }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
     public void advance() {
         x += target.getX() - x;
         y += target.getY() - y;
     }
-    public Boolean hit() {
-        if ()
+    public int hit() {
+        if (Math.abs(x-target.getX()) < 6 && Math.abs(y-target.getY()) < 6) {
+            target.damage(damage);
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 }
