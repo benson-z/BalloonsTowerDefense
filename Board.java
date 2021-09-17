@@ -1,4 +1,4 @@
-package balloonstowerdefence;
+package balloonstowerdefense;
 
 public class Board {
     private int[][] grid = new int[40][20];

@@ -1,4 +1,4 @@
-package balloonstowerdefence;
+package balloonstowerdefense;
 
 class Tower {
     private int x;

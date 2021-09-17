@@ -3,12 +3,12 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import balloonstowerdefence.*;
+import balloonstowerdefense.*;
 
 public class BalloonsTowerDefense {
     public static void main(String args[]) {
         Board game = new Board();
-        new BalloonsTowerDefense(game, 1000);
+        new BalloonsTowerDefense(game, 750);
     }
     public BalloonsTowerDefense(Board game, int money) {
         EventQueue.invokeLater(new Runnable() {

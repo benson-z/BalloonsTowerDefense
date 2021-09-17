@@ -1,4 +1,4 @@
-package balloonstowerdefence;
+package balloonstowerdefense;
 
 import java.lang.Math;
 
@@ -23,13 +23,13 @@ public class Bullet {
         if (target.getX() > x) {
             x += 3;
         }
-        else {
+        else if (target.getX() < x) {
             x -= 3;
         }
         if (target.getY() > y) {
             y += 3;
         }
-        else {
+        else if (target.getY() < y) {
             y -= 3;
         }
     }

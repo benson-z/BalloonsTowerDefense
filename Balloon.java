@@ -1,4 +1,4 @@
-package balloonstowerdefence;
+package balloonstowerdefense;
 
 public class Balloon {
     private int health = 8;

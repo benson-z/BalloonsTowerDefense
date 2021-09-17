@@ -1,4 +1,4 @@
-package balloonstowerdefence;
+package balloonstowerdefense;
 
 public class BetterTower extends Tower {
     public BetterTower(int x, int y) {
