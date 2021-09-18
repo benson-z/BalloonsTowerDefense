@@ -8,7 +8,7 @@ import balloonstowerdefense.*;
 public class BalloonsTowerDefense {
     public static void main(String args[]) {
         Board game = new Board();
-        new BalloonsTowerDefense(game, 750);
+        new BalloonsTowerDefense(game, 3000);
     }
     public BalloonsTowerDefense(Board game, int money) {
         EventQueue.invokeLater(new Runnable() {
@@ -30,6 +30,10 @@ public class BalloonsTowerDefense {
                 display.addBalloon(new Balloon(-80, 200));
                 display.addBalloon(new Balloon(-140, 200));
                 display.addBalloon(new Balloon(-200, 200));
+                display.addBalloon(new Balloon(-50, 200));
+                display.addBalloon(new Balloon(-110, 200));
+                display.addBalloon(new Balloon(-170, 200));
+                display.addBalloon(new Balloon(-230, 200));
             }
         });
     }

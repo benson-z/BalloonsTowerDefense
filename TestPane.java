@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.awt.*;
 
 public class TestPane extends JPanel {
@@ -24,10 +27,23 @@ public class TestPane extends JPanel {
     private Vector<BetterTower> bettertowers = new Vector<BetterTower>();
     private Vector<Bullet> bullets = new Vector<Bullet>();
     private Board game;
+    private BufferedImage balloonimg = null;
+    private BufferedImage badtowerimg = null;
+    private BufferedImage bettertowerimg = null;
+    private BufferedImage grassimg = null;
+    private BufferedImage pathimg = null;
     private int tickcounter=0;
     public TestPane(Board game, int mon) {
         this.game = game;
         this.money[0] = mon;
+        try {
+            this.balloonimg = ImageIO.read(new File("balloon.png"));
+            this.badtowerimg = ImageIO.read(new File("BadTower.png"));
+            this.bettertowerimg = ImageIO.read(new File("BetterTower.png"));
+            this.grassimg = ImageIO.read(new File("grass.png"));
+            this.pathimg = ImageIO.read(new File("path.png"));
+        } catch (IOException e) {
+        }
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me);
@@ -130,22 +146,26 @@ public class TestPane extends JPanel {
         for (int y=0; y<20; y++) {
             for (int x=0; x<40; x++) {
                 if (game.getTile(x, y) == 0) {
-                    g2d.setColor(Color.GREEN);
-                    g2d.fillRect(x*20, y*20, 20, 20);
+                    //g2d.setColor(Color.GREEN);
+                    //g2d.fillRect(x*20, y*20, 20, 20);
+                    g2d.drawImage(grassimg, x*20, y*20, null);
                 }
                 else if (game.getTile(x, y) == 1) {
-                    g2d.setColor(Color.ORANGE);
-                    g2d.fillRect(x*20, y*20, 20, 20);
+                    //g2d.setColor(Color.ORANGE);
+                    //g2d.fillRect(x*20, y*20, 20, 20);
+                    g2d.drawImage(pathimg, x*20, y*20, null);
                 }
             }
         }
         for (BadTower badtower : badtowers) {
-            g2d.setColor(Color.LIGHT_GRAY);
-            g2d.fillRect(badtower.getX()*20, badtower.getY()*20, 20, 20);
+            //g2d.setColor(Color.LIGHT_GRAY);
+            //g2d.fillRect(badtower.getX()*20, badtower.getY()*20, 20, 20);
+            g2d.drawImage(badtowerimg, badtower.getX()*20, badtower.getY()*20, null);
         }
         for (BetterTower bettertower : bettertowers) {
-            g2d.setColor(Color.GRAY);
-            g2d.fillRect(bettertower.getX()*20, bettertower.getY()*20, 20, 20);
+            //g2d.setColor(Color.GRAY);
+            //g2d.fillRect(bettertower.getX()*20, bettertower.getY()*20, 20, 20);
+            g2d.drawImage(bettertowerimg, bettertower.getX()*20, bettertower.getY()*20, null);
         }
         for (Bullet b : bullets) {
             g2d.setColor(Color.DARK_GRAY);
@@ -154,7 +174,8 @@ public class TestPane extends JPanel {
         g2d.setColor(Color.RED);
         for (Balloon a : balloons) {
             g2d.setColor(Color.RED);
-            g2d.fillOval(a.getX()+2, a.getY()+2, 16, 16);
+            //g2d.fillOval(a.getX()+2, a.getY()+2, 16, 16);
+            g2d.drawImage(balloonimg, a.getX()+1, a.getY(), null);
             g2d.fillRect(a.getX()+2, a.getY()-5, 16, 4);
             g2d.setColor(Color.BLUE);
             g2d.fillRect(a.getX()+2, a.getY()-5, a.getHealth()*2, 4);
